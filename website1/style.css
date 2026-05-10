@@ -273,6 +273,15 @@ body {
     opacity: 1;
 }
 
+/* mirror the left and right side images so facing direction looks correct */
+#frame1 {
+    transform: scaleX(-1);
+}
+
+#frame3 {
+    transform: scaleX(-1);
+}
+
 /* controls row below the viewer */
 .viewer-controls {
     display: flex;

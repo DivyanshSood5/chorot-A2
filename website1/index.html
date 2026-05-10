@@ -4,193 +4,212 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASTRO - Winter Armor II</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- outer orange border frame -->
-    <div class="page-frame">
+    <!-- top navbar -->
+    <header class="header">
+        <div class="logo">ASTRO<span class="dot">.</span></div>
 
-        <!-- header / navbar -->
-        <header class="header">
-            <div class="logo">ASTRO<span class="dot">.</span></div>
+        <nav class="nav">
+            <a href="#">PRODUCTS</a>
+            <a href="#">CATEGORY</a>
+            <a href="#">ABOUT US</a>
+            <a href="#">CONTACT</a>
+        </nav>
 
-            <nav class="nav">
-                <a href="#">PRODUCTS</a>
-                <a href="#">CATEGORY</a>
-                <a href="#">ABOUT US</a>
-                <a href="#">CONTACT</a>
-            </nav>
+        <div class="header-icons">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-solid fa-cart-shopping"></i>
+            <i class="fa-regular fa-user"></i>
+        </div>
+    </header>
 
-            <div class="header-icons">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <i class="fa-solid fa-cart-shopping"></i>
-                <i class="fa-regular fa-user"></i>
-            </div>
-        </header>
+    <!-- main product section - 3 columns -->
+    <div class="product-section">
 
-        <!-- main product section -->
-        <div class="product-section">
+        <!-- left column - product details -->
+        <div class="left-panel">
+            <p class="new-label">NEW</p>
+            <h1 class="product-title">
+                ASTRO<br>
+                WINTER<br>
+                ARMOR <span class="title-orange">II</span>
+            </h1>
+            <p class="price">$560</p>
 
-            <!-- left side - product info -->
-            <div class="left-panel">
-                <p class="new-label">NEW</p>
-                <h1 class="product-title">ASTRO<br>WINTER<br>ARMOR <span class="title-orange">II</span></h1>
-                <p class="price">$560</p>
+            <hr class="divider">
 
-                <hr class="divider">
+            <p class="desc-heading">DESCRIPTION</p>
+            <p class="desc-text">
+                A next-gen cold war jacket. The essence of retro style and the
+                resilience you need for extreme winter conditions. Engineered to provide
+                versatile function for your winter wardrobe, accented with strategic
+                utility details.
+            </p>
 
-                <p class="desc-heading">DESCRIPTION</p>
-                <p class="desc-text">A next-gen cold war jacket. The essence of retro style and the resilience you need for extreme winter conditions. Engineered to provide versatile function for your winter wardrobe, accented with strategic utility details.</p>
+            <a href="#" class="read-more">READ MORE &nbsp;<i class="fa-solid fa-angle-right"></i></a>
 
-                <a href="#" class="read-more">READ MORE <i class="fa-solid fa-angle-right"></i></a>
+            <hr class="divider">
 
-                <hr class="divider">
-
-                <div class="accordion-item">
-                    <span>MATERIAL &amp; CARE</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
-
-                <hr class="divider">
-
-                <div class="accordion-item">
-                    <span>SHIPPING &amp; RETURNS</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
-
-                <hr class="divider">
+            <div class="accordion-item">
+                <span>MATERIAL &amp; CARE</span>
+                <i class="fa-solid fa-chevron-down"></i>
             </div>
 
-            <!-- center - jacket image -->
-            <div class="center-panel">
-                <img src="../jacketMain.png" alt="Astro Winter Armor Jacket" class="jacket-img">
+            <hr class="divider">
 
-                <!-- feature badges below image -->
-                <div class="badges">
-                    <div class="badge">
-                        <i class="fa-solid fa-snowflake"></i>
-                        <span>EXTREME WARMTH</span>
-                    </div>
-                    <div class="badge">
-                        <i class="fa-solid fa-shield-halved"></i>
-                        <span>WIND RESISTANT</span>
-                    </div>
-                    <div class="badge">
-                        <i class="fa-solid fa-feather"></i>
-                        <span>LIGHTWEIGHT</span>
-                    </div>
-                </div>
+            <div class="accordion-item">
+                <span>SHIPPING &amp; RETURNS</span>
+                <i class="fa-solid fa-chevron-down"></i>
             </div>
 
-            <!-- right side - size & color -->
-            <div class="right-panel">
-
-                <p class="section-label">SIZE</p>
-                <div class="size-buttons">
-                    <button class="size-btn">S</button>
-                    <button class="size-btn active">M</button>
-                    <button class="size-btn">L</button>
-                    <button class="size-btn">XL</button>
-                </div>
-                <a href="#" class="size-guide">SIZE GUIDE <i class="fa-solid fa-angle-right"></i></a>
-
-                <hr class="divider">
-
-                <p class="section-label">COLOR</p>
-                <div class="color-grid">
-                    <div class="color-option active-color">
-                        <img src="https://images.unsplash.com/photo-1611312449412-6cefac5dc3e4?w=100&h=100&fit=crop" alt="Beige Jacket">
-                        <span>BEIGE</span>
-                    </div>
-                    <div class="color-option">
-                        <img src="https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=100&h=100&fit=crop" alt="Red Jacket">
-                        <span>RED</span>
-                    </div>
-                    <div class="color-option">
-                        <img src="https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=100&h=100&fit=crop" alt="Black Jacket">
-                        <span>BLACK</span>
-                    </div>
-                    <div class="color-option">
-                        <img src="https://images.unsplash.com/photo-1604644401890-0bd678c83788?w=100&h=100&fit=crop" alt="White Jacket">
-                        <span>WHITE</span>
-                    </div>
-                </div>
-
-                <button class="wishlist-btn">
-                    <i class="fa-regular fa-heart"></i> ADD TO WISHLIST
-                </button>
-
-                <button class="add-to-bag-btn">
-                    ADD TO BAG <i class="fa-solid fa-bag-shopping"></i>
-                </button>
-
-            </div>
-
+            <hr class="divider">
         </div>
 
-        <!-- features section with images -->
-        <div class="features-section">
-            <div class="feature-card">
-                <img src="https://images.unsplash.com/photo-1611312449412-6cefac5dc3e4?w=120&h=120&fit=crop" alt="Water Repellent">
-                <div class="feature-text">
-                    <h3>3X<br>WATER-REPELLENT</h3>
-                    <p>The fabric repels rain, snow and moisture while keeping you dry and comfortable.</p>
+        <!-- center column - jacket image -->
+        <div class="center-panel">
+            <img src="../jacketMain.png" alt="Astro Winter Armor II Jacket" class="jacket-img">
+
+            <!-- 3 feature badges below jacket image -->
+            <div class="badges-row">
+                <div class="badge-item">
+                    <i class="fa-solid fa-snowflake"></i>
+                    <span>EXTREME WARMTH</span>
                 </div>
-            </div>
-            <div class="feature-card">
-                <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=120&h=120&fit=crop" alt="3D Puffered">
-                <div class="feature-text">
-                    <h3>3D AREAS<br>PUFFERED</h3>
-                    <p>Strategically padded zones trap heat and maximize insulation without the bulk.</p>
+                <div class="badge-item">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>WIND RESISTANT</span>
                 </div>
-            </div>
-            <div class="feature-card">
-                <img src="https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=120&h=120&fit=crop" alt="Insulation">
-                <div class="feature-text">
-                    <h3>INSULATION</h3>
-                    <p>Advanced thermal filling locks in warmth up to -30°C for extreme conditions.</p>
-                </div>
-            </div>
-            <div class="feature-card">
-                <img src="https://images.unsplash.com/photo-1604644401890-0bd678c83788?w=120&h=120&fit=crop" alt="Utility Pockets">
-                <div class="feature-text">
-                    <h3>UTILITY<br>POCKETS</h3>
-                    <p>Multi-functional pockets for secure storage on the go.</p>
+                <div class="badge-item">
+                    <i class="fa-solid fa-feather"></i>
+                    <span>LIGHTWEIGHT</span>
                 </div>
             </div>
         </div>
 
-        <!-- bottom info bar -->
-        <div class="info-bar">
-            <div class="info-item">
-                <i class="fa-solid fa-border-all"></i>
-                <div>
-                    <strong>PREMIUM FABRICS</strong>
-                    <p>Durable, high-performance materials.</p>
+        <!-- right column - size, color, buttons -->
+        <div class="right-panel">
+
+            <p class="panel-heading">SIZE</p>
+            <div class="size-buttons">
+                <button class="size-btn">S</button>
+                <button class="size-btn active">M</button>
+                <button class="size-btn">L</button>
+                <button class="size-btn">XL</button>
+            </div>
+            <a href="#" class="size-guide-link">SIZE GUIDE &nbsp;<i class="fa-solid fa-angle-right"></i></a>
+
+            <hr class="divider">
+
+            <p class="panel-heading">COLOR</p>
+
+            <!-- 2x2 color grid -->
+            <div class="color-grid">
+                <div class="color-option selected">
+                    <img src="https://images.unsplash.com/photo-1611312449412-6cefac5dc3e4?w=100&h=100&fit=crop" alt="Beige Jacket">
+                    <span>BEIGE</span>
+                </div>
+                <div class="color-option">
+                    <img src="https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=100&h=100&fit=crop" alt="Red Jacket">
+                    <span>RED</span>
+                </div>
+                <div class="color-option">
+                    <img src="https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=100&h=100&fit=crop" alt="Black Jacket">
+                    <span>BLACK</span>
+                </div>
+                <div class="color-option">
+                    <img src="https://images.unsplash.com/photo-1604644401890-0bd678c83788?w=100&h=100&fit=crop" alt="White Jacket">
+                    <span>WHITE</span>
                 </div>
             </div>
-            <div class="info-item">
-                <i class="fa-solid fa-shield"></i>
-                <div>
-                    <strong>THERMAL PROTECTION</strong>
-                    <p>Built for extreme winter climates.</p>
-                </div>
+
+            <button class="wishlist-btn">
+                <i class="fa-regular fa-heart"></i>&nbsp; ADD TO WISHLIST
+            </button>
+
+            <button class="add-bag-btn">
+                ADD TO BAG &nbsp;<i class="fa-solid fa-bag-shopping"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- 4-card features strip -->
+    <div class="features-strip">
+
+        <div class="feat-card">
+            <img src="https://images.unsplash.com/photo-1611312449412-6cefac5dc3e4?w=200&h=160&fit=crop" alt="Water Repellent">
+            <div class="feat-text">
+                <h3>3X<br>WATER-REPELLENT</h3>
+                <p>The fabric repels rain, snow and moisture while keeping you dry and comfortable.</p>
             </div>
-            <div class="info-item">
-                <i class="fa-regular fa-circle"></i>
-                <div>
-                    <strong>DESIGNED FOR FUNCTION</strong>
-                    <p>Every detail serves a purpose.</p>
-                </div>
+        </div>
+
+        <div class="feat-card">
+            <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=200&h=160&fit=crop" alt="3D Puffered">
+            <div class="feat-text">
+                <h3>3D AREAS<br>PUFFERED</h3>
+                <p>Strategically padded zones trap heat and maximize insulation without the bulk.</p>
             </div>
-            <div class="info-item">
-                <i class="fa-regular fa-star"></i>
-                <div>
-                    <strong>LIMITED EDITION</strong>
-                    <p>Exclusive drops, limited quantities.</p>
-                </div>
+        </div>
+
+        <div class="feat-card">
+            <img src="https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=200&h=160&fit=crop" alt="Insulation">
+            <div class="feat-text">
+                <h3>INSULATION</h3>
+                <p>Advanced thermal filling locks in warmth up to -30°C for extreme conditions.</p>
+            </div>
+        </div>
+
+        <div class="feat-card no-border">
+            <img src="https://images.unsplash.com/photo-1604644401890-0bd678c83788?w=200&h=160&fit=crop" alt="Utility Pockets">
+            <div class="feat-text">
+                <h3>UTILITY<br>POCKETS</h3>
+                <p>Multi-functional pockets for secure storage on the go.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- bottom info bar -->
+    <div class="info-bar">
+
+        <div class="info-item">
+            <i class="fa-solid fa-border-all"></i>
+            <div class="info-text">
+                <strong>PREMIUM FABRICS</strong>
+                <p>Durable, high-performance materials.</p>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <i class="fa-solid fa-shield"></i>
+            <div class="info-text">
+                <strong>THERMAL PROTECTION</strong>
+                <p>Built for extreme winter climates.</p>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <i class="fa-regular fa-circle"></i>
+            <div class="info-text">
+                <strong>DESIGNED FOR FUNCTION</strong>
+                <p>Every detail serves a purpose.</p>
+            </div>
+        </div>
+
+        <div class="info-item no-border">
+            <i class="fa-regular fa-star"></i>
+            <div class="info-text">
+                <strong>LIMITED EDITION</strong>
+                <p>Exclusive drops, limited quantities.</p>
             </div>
         </div>
 

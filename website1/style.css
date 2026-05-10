@@ -1,4 +1,4 @@
-/* reset some default browser styles */
+/* reset */
 * {
     margin: 0;
     padding: 0;
@@ -6,27 +6,21 @@
 }
 
 body {
-    background-color: #ddd5c8;
-    font-family: Arial, sans-serif;
+    font-family: 'Barlow', Arial, sans-serif;
+    background-color: #f5f0eb;
+    color: #111;
 }
 
-/* outer orange border frame around the whole page */
-.page-frame {
-    border: 8px solid #E87722;
-    border-radius: 18px;
-    background-color: #f5f0ea;
-    margin: 20px;
-    overflow: hidden;
-}
-
-/* ---- HEADER ---- */
+/* =====================
+   HEADER
+===================== */
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 45px;
-    border-bottom: 1px solid #ddd;
-    background-color: #f5f0ea;
+    padding: 18px 60px;
+    background-color: #f5f0eb;
+    border-bottom: 1px solid #e0d9d0;
 }
 
 .logo {
@@ -42,14 +36,14 @@ body {
 
 .nav {
     display: flex;
-    gap: 40px;
+    gap: 45px;
 }
 
 .nav a {
     text-decoration: none;
-    color: #444;
     font-size: 13px;
     font-weight: 500;
+    color: #444;
     letter-spacing: 0.5px;
 }
 
@@ -59,9 +53,10 @@ body {
 
 .header-icons {
     display: flex;
-    gap: 22px;
-    font-size: 18px;
-    color: #333;
+    align-items: center;
+    gap: 24px;
+    font-size: 17px;
+    color: #444;
     cursor: pointer;
 }
 
@@ -69,38 +64,38 @@ body {
     color: #E87722;
 }
 
-/* ---- MAIN PRODUCT SECTION ---- */
+/* =====================
+   MAIN PRODUCT SECTION
+===================== */
 .product-section {
     display: flex;
-    padding: 35px 45px 10px 45px;
-    gap: 15px;
-    min-height: 620px;
+    padding: 40px 60px 0px 60px;
+    gap: 0;
+    min-height: 640px;
 }
 
-/* LEFT PANEL */
+/* ---- LEFT PANEL ---- */
 .left-panel {
-    flex: 0 0 230px;
-}
-
-/* using position relative so the NEW label can be placed naturally */
-.left-panel {
+    flex: 0 0 250px;
+    padding-right: 30px;
     position: relative;
 }
 
 .new-label {
-    color: #E87722;
-    font-weight: 700;
     font-size: 13px;
+    font-weight: 700;
+    color: #E87722;
     letter-spacing: 2px;
     margin-bottom: 6px;
 }
 
 .product-title {
-    font-size: 48px;
+    font-size: 52px;
     font-weight: 900;
-    line-height: 1.05;
+    line-height: 1.0;
     color: #111;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
 }
 
 .title-orange {
@@ -111,13 +106,13 @@ body {
     font-size: 30px;
     font-weight: 700;
     color: #111;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 }
 
 .divider {
     border: none;
-    border-top: 1px solid #ccc;
-    margin: 14px 0;
+    border-top: 1px solid #d9d2c9;
+    margin: 16px 0;
 }
 
 .desc-heading {
@@ -129,9 +124,9 @@ body {
 }
 
 .desc-text {
-    font-size: 12px;
+    font-size: 12.5px;
     color: #666;
-    line-height: 1.7;
+    line-height: 1.75;
     margin-bottom: 12px;
 }
 
@@ -143,7 +138,6 @@ body {
     letter-spacing: 0.5px;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
 }
 
 .read-more:hover {
@@ -157,74 +151,76 @@ body {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 1px;
-    cursor: pointer;
-    padding: 5px 0;
     color: #111;
+    cursor: pointer;
+    padding: 6px 0;
 }
 
 .accordion-item i {
-    font-size: 12px;
-    color: #888;
+    font-size: 11px;
+    color: #999;
 }
 
-/* CENTER PANEL */
-/* position relative so we can place things on top of the image */
+/* ---- CENTER PANEL ---- */
 .center-panel {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     position: relative;
 }
 
 .jacket-img {
     width: 100%;
-    max-width: 520px;
+    max-width: 560px;
     object-fit: contain;
+    margin-bottom: 0;
 }
 
-/* badges row below the jacket image */
-.badges {
+/* badges row at the bottom of center */
+.badges-row {
     display: flex;
-    gap: 40px;
+    gap: 45px;
     justify-content: center;
-    margin-top: 12px;
-    padding-bottom: 10px;
-    border-top: 1px solid #ddd;
-    padding-top: 16px;
-    width: 100%;
+    align-items: center;
+    padding: 20px 0;
+    border-top: 1px solid #e0d9d0;
+    width: 90%;
+    margin-top: auto;
 }
 
-.badge {
+.badge-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     font-size: 10px;
     font-weight: 600;
-    color: #666;
+    color: #777;
     letter-spacing: 0.8px;
 }
 
-.badge i {
+.badge-item i {
     font-size: 20px;
-    color: #999;
+    color: #aaa;
 }
 
-/* RIGHT PANEL */
+/* ---- RIGHT PANEL ---- */
 .right-panel {
-    flex: 0 0 220px;
-    padding-left: 15px;
+    flex: 0 0 240px;
+    padding-left: 30px;
+    padding-top: 10px;
+    position: relative;
 }
 
-.section-label {
+.panel-heading {
     font-size: 14px;
     font-weight: 800;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     text-align: center;
-    margin-bottom: 14px;
     color: #111;
+    margin-bottom: 14px;
 }
 
 /* size buttons */
@@ -232,19 +228,24 @@ body {
     display: flex;
     gap: 8px;
     justify-content: center;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .size-btn {
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
     border: 1.5px solid #ccc;
     border-radius: 10px;
-    background: white;
+    background-color: white;
     font-size: 13px;
     font-weight: 700;
-    cursor: pointer;
     color: #333;
+    cursor: pointer;
+    font-family: 'Barlow', Arial, sans-serif;
+}
+
+.size-btn:hover {
+    border-color: #E87722;
 }
 
 .size-btn.active {
@@ -253,78 +254,93 @@ body {
     color: white;
 }
 
-.size-btn:hover {
-    border-color: #E87722;
-}
-
-.size-guide {
+.size-guide-link {
     display: block;
     text-align: center;
     font-size: 11px;
     font-weight: 600;
-    color: #444;
+    color: #333;
     text-decoration: none;
-    margin-bottom: 4px;
     letter-spacing: 0.3px;
+    margin-bottom: 4px;
 }
 
-/* color grid 2x2 layout */
+.size-guide-link:hover {
+    color: #E87722;
+}
+
+/* color grid - 2 columns */
 .color-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
     justify-content: center;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
-/* each color option uses position relative so the active border shows up properly */
+/* each color card uses position relative for the selected border effect */
 .color-option {
-    width: 90px;
+    width: 95px;
     text-align: center;
     cursor: pointer;
-    border: 2px solid #e0e0e0;
+    border: 2px solid #e0d9d0;
     border-radius: 10px;
-    padding: 4px;
-    position: relative;
+    padding: 5px;
     background-color: white;
+    position: relative;
 }
 
 .color-option img {
-    width: 80px;
-    height: 80px;
+    width: 83px;
+    height: 83px;
     object-fit: cover;
     border-radius: 7px;
+    display: block;
 }
 
 .color-option span {
     display: block;
     font-size: 10px;
     font-weight: 700;
-    margin-top: 4px;
     color: #333;
+    margin-top: 5px;
     letter-spacing: 0.5px;
 }
 
-.color-option.active-color {
+.color-option.selected {
     border-color: #E87722;
+}
+
+/* small orange checkmark in corner of selected color */
+.color-option.selected::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: #E87722;
+    border-radius: 50%;
 }
 
 /* wishlist button */
 .wishlist-btn {
     width: 100%;
-    padding: 13px;
+    padding: 13px 10px;
     border: 1.5px solid #bbb;
-    border-radius: 30px;
-    background: white;
+    border-radius: 50px;
+    background-color: white;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
+    color: #333;
     cursor: pointer;
-    margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 7px;
-    color: #333;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+    font-family: 'Barlow', Arial, sans-serif;
 }
 
 .wishlist-btn:hover {
@@ -332,109 +348,114 @@ body {
     color: #E87722;
 }
 
-/* add to bag button - orange big button */
-.add-to-bag-btn {
+/* add to bag button */
+.add-bag-btn {
     width: 100%;
-    padding: 15px;
+    padding: 15px 10px;
     background-color: #E87722;
     color: white;
     border: none;
-    border-radius: 30px;
+    border-radius: 50px;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 800;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 9px;
-    letter-spacing: 0.8px;
+    letter-spacing: 1px;
+    font-family: 'Barlow', Arial, sans-serif;
 }
 
-.add-to-bag-btn:hover {
+.add-bag-btn:hover {
     background-color: #cf6710;
 }
 
-/* ---- FEATURES SECTION (4 cards with image + text) ---- */
-.features-section {
+/* =====================
+   FEATURES STRIP
+===================== */
+.features-strip {
     display: flex;
-    border-top: 1px solid #ddd;
-    margin-top: 5px;
+    border-top: 1px solid #e0d9d0;
+    margin-top: 10px;
 }
 
-.feature-card {
+.feat-card {
     flex: 1;
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 22px 16px;
-    border-right: 1px solid #ddd;
+    gap: 16px;
+    padding: 24px 20px;
+    border-right: 1px solid #e0d9d0;
     position: relative;
 }
 
-.feature-card:last-child {
+.feat-card.no-border {
     border-right: none;
 }
 
-.feature-card img {
-    width: 95px;
-    height: 95px;
+.feat-card img {
+    width: 100px;
+    height: 100px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 10px;
     flex-shrink: 0;
 }
 
-.feature-text h3 {
+.feat-text h3 {
     font-size: 13px;
     font-weight: 800;
     color: #111;
-    margin-bottom: 7px;
-    line-height: 1.3;
+    line-height: 1.35;
+    margin-bottom: 8px;
     letter-spacing: 0.3px;
 }
 
-.feature-text p {
-    font-size: 11px;
+.feat-text p {
+    font-size: 11.5px;
     color: #777;
-    line-height: 1.6;
+    line-height: 1.65;
 }
 
-/* ---- INFO BAR at the very bottom ---- */
+/* =====================
+   INFO BAR
+===================== */
 .info-bar {
     display: flex;
-    border-top: 1px solid #ddd;
-    background-color: #f5f0ea;
+    border-top: 1px solid #e0d9d0;
+    background-color: #f5f0eb;
 }
 
 .info-item {
     flex: 1;
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 20px 22px;
-    border-right: 1px solid #ddd;
+    gap: 15px;
+    padding: 22px 24px;
+    border-right: 1px solid #e0d9d0;
 }
 
-.info-item:last-child {
+.info-item.no-border {
     border-right: none;
 }
 
-.info-item i {
-    font-size: 24px;
-    color: #666;
+.info-item > i {
+    font-size: 26px;
+    color: #777;
     flex-shrink: 0;
 }
 
-.info-item strong {
+.info-text strong {
     display: block;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 800;
     color: #111;
-    margin-bottom: 3px;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
 }
 
-.info-item p {
-    font-size: 10px;
-    color: #777;
+.info-text p {
+    font-size: 11px;
+    color: #888;
     line-height: 1.5;
 }

@@ -88,12 +88,15 @@
                     <i class="fa-solid fa-hand-pointer"></i> Drag to rotate
                 </div>
 
-                <!-- frame stack - all 4 angles stacked, JS crossfades between them -->
-                <div class="viewer-frame-stack" id="viewerStack">
-                    <img src="assets/image.webp"     class="jacket-frame" id="frame0" alt="Front">
-                    <img src="assets/jacketRight.png" class="jacket-frame" id="frame1" alt="Right">
-                    <img src="assets/jacketBack.png"  class="jacket-frame" id="frame2" alt="Back">
-                    <img src="assets/jacketLeft.png"  class="jacket-frame" id="frame3" alt="Left">
+                <!-- perspective wrapper gives 3D depth -->
+                <div class="viewer-perspective-wrap">
+                    <!-- this whole stack physically tilts in 3D as you drag -->
+                    <div class="viewer-frame-stack" id="viewerStack">
+                        <img src="assets/image.webp"      class="jacket-frame" id="frame0" alt="Front">
+                        <img src="assets/jacketRight.png"  class="jacket-frame" id="frame1" alt="Right">
+                        <img src="assets/jacketBack.png"   class="jacket-frame" id="frame2" alt="Back">
+                        <img src="assets/jacketLeft.png"   class="jacket-frame" id="frame3" alt="Left">
+                    </div>
                 </div>
 
                 <!-- controls row -->
@@ -254,43 +257,66 @@
     </div>
 
 <script>
-    var stack     = document.getElementById('viewerStack');
-    var spinBtn   = document.getElementById('spinBtn');
-    var spinIcon  = document.getElementById('spinIcon');
-    var resetBtn  = document.getElementById('resetBtn');
-    var dragHint  = document.getElementById('dragHint');
+    var stack    = document.getElementById('viewerStack');
+    var spinBtn  = document.getElementById('spinBtn');
+    var spinIcon = document.getElementById('spinIcon');
+    var resetBtn = document.getElementById('resetBtn');
+    var dragHint = document.getElementById('dragHint');
 
-    // grab all 4 frame images
     var frames = [
-        document.getElementById('frame0'),  // front  (0°)
-        document.getElementById('frame1'),  // right  (90°)
-        document.getElementById('frame2'),  // back   (180°)
-        document.getElementById('frame3')   // left   (270°)
+        document.getElementById('frame0'),   // 0°   front
+        document.getElementById('frame1'),   // 90°  right
+        document.getElementById('frame2'),   // 180° back
+        document.getElementById('frame3')    // 270° left
     ];
 
-    var currentAngle = 0;
+    var totalAngle   = 0;     // cumulative drag angle (can go beyond 360)
+    var activeFrame  = 0;     // which photo is currently shown
     var isDragging   = false;
     var startX       = 0;
-    var lastAngle    = 0;
     var lastX        = 0;
+    var dragAngle    = 0;     // angle at drag start
     var velocity     = 0;
-    var spinInterval = null;
+    var spinRAF      = null;
     var momentumRAF  = null;
     var isSpinning   = false;
 
-    // crossfade between the 4 real angle images based on current angle
-    function updateFrames(angle) {
-        var normalized  = ((angle % 360) + 360) % 360;
-        var frameFloat  = normalized / 90;           // 0.0 → 4.0
-        var frameA      = Math.floor(frameFloat) % 4;
-        var frameB      = (frameA + 1) % 4;
-        var blend       = frameFloat - Math.floor(frameFloat); // 0 → 1
+    // show a specific frame instantly (no fade)
+    function showFrame(index) {
+        if (index === activeFrame) return;
+        frames[activeFrame].style.opacity = '0';
+        frames[index].style.opacity = '1';
+        activeFrame = index;
+    }
 
-        frames.forEach(function(f) { f.style.opacity = 0; });
-        frames[frameA].style.opacity = 1 - blend;
-        frames[frameB].style.opacity = blend;
+    // core update - called every frame
+    // totalAngle drives everything:
+    //   which photo to show + how much to physically tilt the stack
+    function update(angle) {
+        totalAngle = angle;
 
-        // update dots
+        var normalized   = ((angle % 360) + 360) % 360;  // 0 - 360
+        var frameFloat   = normalized / 90;               // 0.0 - 4.0
+        var frameIndex   = Math.floor(frameFloat) % 4;
+        var progress     = frameFloat - Math.floor(frameFloat); // 0 - 1 within current frame
+
+        // swap to the correct photo instantly
+        showFrame(frameIndex);
+
+        // map progress (0→1) to a tilt angle (-45° → +45°)
+        // so at the start of a frame you see it from -45°
+        // at midpoint (0.5) you see it straight on (0°)
+        // at end of frame you see it from +45° before swapping
+        var tiltY = (progress - 0.5) * 90;
+
+        // apply 3D tilt to the whole stack
+        stack.style.transform = 'rotateY(' + tiltY + 'deg)';
+
+        // add slight brightness darkening at extreme tilt angles (more realistic)
+        var brightness = 1 - (Math.abs(tiltY) / 90) * 0.18;
+        stack.style.filter = 'brightness(' + brightness + ')';
+
+        // update the 4 position dots
         var dotIndex = Math.round(normalized / 90) % 4;
         for (var i = 0; i < 4; i++) {
             document.getElementById('dot' + i).classList.remove('active');
@@ -298,39 +324,37 @@
         document.getElementById('dot' + dotIndex).classList.add('active');
     }
 
-    function setAngle(angle) {
-        currentAngle = angle;
-        updateFrames(angle);
-    }
-
-    // momentum deceleration after drag release
+    // momentum - keeps spinning after drag release, decelerates naturally
     function applyMomentum() {
-        velocity *= 0.92;
-        if (Math.abs(velocity) < 0.05) return;
-        currentAngle += velocity;
-        updateFrames(currentAngle);
+        velocity *= 0.93;
+        if (Math.abs(velocity) < 0.05) {
+            cancelAnimationFrame(momentumRAF);
+            return;
+        }
+        totalAngle += velocity;
+        update(totalAngle);
         momentumRAF = requestAnimationFrame(applyMomentum);
     }
 
-    // auto spin
+    // auto spin using rAF
     function startSpin() {
         isSpinning = true;
         spinIcon.className = 'fa-solid fa-pause';
         cancelAnimationFrame(momentumRAF);
 
-        function spinStep() {
+        function step() {
             if (!isSpinning) return;
-            currentAngle += 0.8;
-            updateFrames(currentAngle);
-            spinInterval = requestAnimationFrame(spinStep);
+            totalAngle += 0.9;
+            update(totalAngle);
+            spinRAF = requestAnimationFrame(step);
         }
-        spinStep();
+        step();
     }
 
     function stopSpin() {
         isSpinning = false;
         spinIcon.className = 'fa-solid fa-play';
-        cancelAnimationFrame(spinInterval);
+        cancelAnimationFrame(spinRAF);
     }
 
     spinBtn.addEventListener('click', function() {
@@ -340,17 +364,17 @@
     resetBtn.addEventListener('click', function() {
         stopSpin();
         cancelAnimationFrame(momentumRAF);
-        velocity = 0;
-        currentAngle = 0;
-        setAngle(0);
+        velocity   = 0;
+        totalAngle = 0;
+        update(0);
     });
 
-    // ---- MOUSE events ----
+    // --- MOUSE ---
     stack.addEventListener('mousedown', function(e) {
         isDragging = true;
         startX     = e.clientX;
         lastX      = e.clientX;
-        lastAngle  = currentAngle;
+        dragAngle  = totalAngle;
         velocity   = 0;
         stopSpin();
         cancelAnimationFrame(momentumRAF);
@@ -360,23 +384,22 @@
 
     document.addEventListener('mousemove', function(e) {
         if (!isDragging) return;
-        velocity = (e.clientX - lastX) * 0.5;
+        velocity = (e.clientX - lastX) * 0.45;
         lastX    = e.clientX;
-        var diff = e.clientX - startX;
-        setAngle(lastAngle + diff * 0.5);
+        update(dragAngle + (e.clientX - startX) * 0.45);
     });
 
     document.addEventListener('mouseup', function() {
         if (!isDragging) return;
         isDragging = false;
-        applyMomentum();  // keep spinning smoothly after release
+        applyMomentum();
     });
 
-    // ---- TOUCH events ----
+    // --- TOUCH ---
     stack.addEventListener('touchstart', function(e) {
         startX    = e.touches[0].clientX;
         lastX     = e.touches[0].clientX;
-        lastAngle = currentAngle;
+        dragAngle = totalAngle;
         velocity  = 0;
         stopSpin();
         cancelAnimationFrame(momentumRAF);
@@ -385,24 +408,22 @@
 
     stack.addEventListener('touchmove', function(e) {
         e.preventDefault();
-        velocity = (e.touches[0].clientX - lastX) * 0.5;
+        velocity = (e.touches[0].clientX - lastX) * 0.45;
         lastX    = e.touches[0].clientX;
-        var diff = e.touches[0].clientX - startX;
-        setAngle(lastAngle + diff * 0.5);
+        update(dragAngle + (e.touches[0].clientX - startX) * 0.45);
     }, { passive: false });
 
     stack.addEventListener('touchend', function() {
         applyMomentum();
     });
 
-    // show front frame on load then auto spin for 2 full rotations
-    setAngle(0);
+    // boot: show front, auto-spin for 2 full rotations then stop
+    update(0);
     startSpin();
     setTimeout(function() {
         stopSpin();
-    }, 4500);
+    }, 4000);
 
-    // hide drag hint after 5 seconds
     setTimeout(function() {
         dragHint.style.opacity = '0';
     }, 5000);

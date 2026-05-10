@@ -230,20 +230,31 @@ body {
     gap: 7px;
 }
 
-/* frame stack - all 4 images sit on top of each other */
+/* perspective wrapper gives the 3D depth to the rotation */
+.viewer-perspective-wrap {
+    perspective: 1100px;
+    perspective-origin: center center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* frame stack rotates in 3D as a whole unit */
 .viewer-frame-stack {
     position: relative;
     width: 520px;
     height: 520px;
     cursor: grab;
     user-select: none;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
 .viewer-frame-stack:active {
     cursor: grabbing;
 }
 
-/* each frame image is stacked absolutely on top of each other */
+/* all frames stacked - no transition so swap is instant (no fade) */
 .jacket-frame {
     position: absolute;
     top: 0;
@@ -252,12 +263,12 @@ body {
     height: 100%;
     object-fit: contain;
     opacity: 0;
-    transition: opacity 0.06s linear;
+    transition: none;
     pointer-events: none;
     display: block;
 }
 
-/* show front frame by default */
+/* front frame visible by default */
 #frame0 {
     opacity: 1;
 }

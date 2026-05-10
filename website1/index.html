@@ -72,9 +72,58 @@
             <hr class="divider">
         </div>
 
-        <!-- center column - jacket image -->
+        <!-- center column - jacket image with 360 viewer -->
         <div class="center-panel">
-            <img src="assets/image.webp" alt="Astro Winter Armor II Jacket" class="jacket-img">
+
+            <!-- 360 degree viewer -->
+            <div class="viewer-360-wrap">
+
+                <!-- 360 badge top right -->
+                <div class="badge-360">
+                    <i class="fa-solid fa-rotate"></i> 360°
+                </div>
+
+                <!-- drag hint shown on first load -->
+                <div class="drag-hint" id="dragHint">
+                    <i class="fa-solid fa-hand-pointer"></i> Drag to rotate
+                </div>
+
+                <!-- the 3D perspective container -->
+                <div class="viewer-perspective">
+                    <div class="viewer-card" id="viewerCard">
+
+                        <!-- front face of jacket -->
+                        <div class="card-face card-front">
+                            <img src="assets/image.webp" alt="Jacket Front">
+                        </div>
+
+                        <!-- back face - mirrored image to simulate back of jacket -->
+                        <div class="card-face card-back">
+                            <img src="assets/image.webp" alt="Jacket Back">
+                            <!-- dark overlay to make back look different -->
+                            <div class="back-overlay"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- controls row -->
+                <div class="viewer-controls">
+                    <button class="ctrl-btn" id="spinBtn" title="Auto spin">
+                        <i class="fa-solid fa-play" id="spinIcon"></i>
+                    </button>
+                    <div class="rotation-dots">
+                        <span class="rdot active" id="dot0"></span>
+                        <span class="rdot" id="dot1"></span>
+                        <span class="rdot" id="dot2"></span>
+                        <span class="rdot" id="dot3"></span>
+                    </div>
+                    <button class="ctrl-btn" id="resetBtn" title="Reset view">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                    </button>
+                </div>
+
+            </div>
 
             <!-- 3 feature badges below jacket image -->
             <div class="badges-row">
@@ -214,6 +263,116 @@
         </div>
 
     </div>
+
+<script>
+    var card = document.getElementById('viewerCard');
+    var spinBtn = document.getElementById('spinBtn');
+    var spinIcon = document.getElementById('spinIcon');
+    var resetBtn = document.getElementById('resetBtn');
+    var dragHint = document.getElementById('dragHint');
+
+    var currentAngle = 0;
+    var isDragging = false;
+    var startX = 0;
+    var lastAngle = 0;
+    var spinInterval = null;
+    var isSpinning = false;
+
+    // update the 4 dots based on angle
+    function updateDots(angle) {
+        var normalized = ((angle % 360) + 360) % 360;
+        var dotIndex = Math.floor(normalized / 90);
+        for (var i = 0; i < 4; i++) {
+            document.getElementById('dot' + i).classList.remove('active');
+        }
+        document.getElementById('dot' + dotIndex).classList.add('active');
+    }
+
+    // apply rotation to the card
+    function setAngle(angle) {
+        currentAngle = angle;
+        card.style.transform = 'rotateY(' + angle + 'deg)';
+        updateDots(angle);
+    }
+
+    // auto spin
+    function startSpin() {
+        isSpinning = true;
+        spinIcon.className = 'fa-solid fa-pause';
+        spinInterval = setInterval(function() {
+            currentAngle += 1.5;
+            setAngle(currentAngle);
+        }, 16);
+    }
+
+    function stopSpin() {
+        isSpinning = false;
+        spinIcon.className = 'fa-solid fa-play';
+        clearInterval(spinInterval);
+    }
+
+    spinBtn.addEventListener('click', function() {
+        if (isSpinning) {
+            stopSpin();
+        } else {
+            startSpin();
+        }
+    });
+
+    resetBtn.addEventListener('click', function() {
+        stopSpin();
+        currentAngle = 0;
+        setAngle(0);
+    });
+
+    // mouse drag events
+    card.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        startX = e.clientX;
+        lastAngle = currentAngle;
+        stopSpin();
+        card.style.transition = 'none';
+        dragHint.style.opacity = '0';
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        var diff = e.clientX - startX;
+        setAngle(lastAngle + diff * 0.4);
+    });
+
+    document.addEventListener('mouseup', function() {
+        if (isDragging) {
+            isDragging = false;
+            card.style.transition = 'transform 0.1s ease-out';
+        }
+    });
+
+    // touch drag events for mobile
+    card.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+        lastAngle = currentAngle;
+        stopSpin();
+        dragHint.style.opacity = '0';
+    });
+
+    card.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+        var diff = e.touches[0].clientX - startX;
+        setAngle(lastAngle + diff * 0.4);
+    }, { passive: false });
+
+    // auto spin on page load for 3 seconds to show the feature
+    startSpin();
+    setTimeout(function() {
+        stopSpin();
+    }, 3000);
+
+    // hide drag hint after 4 seconds
+    setTimeout(function() {
+        dragHint.style.opacity = '0';
+    }, 4000);
+</script>
 
 </body>
 </html>

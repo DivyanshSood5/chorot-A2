@@ -230,72 +230,36 @@ body {
     gap: 7px;
 }
 
-/* 3D perspective wrapper - this makes the 3D effect work */
-.viewer-perspective {
-    perspective: 1000px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    cursor: grab;
-}
-
-.viewer-perspective:active {
-    cursor: grabbing;
-}
-
-/* the card that rotates in 3D */
-.viewer-card {
+/* frame stack - all 4 images sit on top of each other */
+.viewer-frame-stack {
+    position: relative;
     width: 520px;
     height: 520px;
-    position: relative;
-    transform-style: preserve-3d;
-    transform: rotateY(0deg);
-    transition: transform 0.1s ease-out;
+    cursor: grab;
     user-select: none;
 }
 
-/* both faces share these styles */
-.card-face {
+.viewer-frame-stack:active {
+    cursor: grabbing;
+}
+
+/* each frame image is stacked absolutely on top of each other */
+.jacket-frame {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    backface-visibility: hidden;
-}
-
-.card-face img {
-    width: 100%;
-    height: 100%;
     object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.06s linear;
     pointer-events: none;
     display: block;
 }
 
-/* back face is flipped 180 degrees - image is also mirrored to simulate the back */
-.card-back {
-    transform: rotateY(180deg);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.card-back img {
-    transform: scaleX(-1);
-    filter: brightness(0.88) contrast(1.05);
-}
-
-/* dark overlay on the back face to make it look like the jacket's back side */
-.back-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.18) 100%);
-    pointer-events: none;
+/* show front frame by default */
+#frame0 {
+    opacity: 1;
 }
 
 /* controls row below the viewer */

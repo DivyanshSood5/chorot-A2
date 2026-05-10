@@ -88,23 +88,12 @@
                     <i class="fa-solid fa-hand-pointer"></i> Drag to rotate
                 </div>
 
-                <!-- the 3D perspective container -->
-                <div class="viewer-perspective">
-                    <div class="viewer-card" id="viewerCard">
-
-                        <!-- front face of jacket -->
-                        <div class="card-face card-front">
-                            <img src="assets/image.webp" alt="Jacket Front">
-                        </div>
-
-                        <!-- back face - mirrored image to simulate back of jacket -->
-                        <div class="card-face card-back">
-                            <img src="assets/image.webp" alt="Jacket Back">
-                            <!-- dark overlay to make back look different -->
-                            <div class="back-overlay"></div>
-                        </div>
-
-                    </div>
+                <!-- frame stack - all 4 angles stacked, JS crossfades between them -->
+                <div class="viewer-frame-stack" id="viewerStack">
+                    <img src="assets/image.webp"     class="jacket-frame" id="frame0" alt="Front">
+                    <img src="assets/jacketRight.png" class="jacket-frame" id="frame1" alt="Right">
+                    <img src="assets/jacketBack.png"  class="jacket-frame" id="frame2" alt="Back">
+                    <img src="assets/jacketLeft.png"  class="jacket-frame" id="frame3" alt="Left">
                 </div>
 
                 <!-- controls row -->
@@ -265,113 +254,158 @@
     </div>
 
 <script>
-    var card = document.getElementById('viewerCard');
-    var spinBtn = document.getElementById('spinBtn');
-    var spinIcon = document.getElementById('spinIcon');
-    var resetBtn = document.getElementById('resetBtn');
-    var dragHint = document.getElementById('dragHint');
+    var stack     = document.getElementById('viewerStack');
+    var spinBtn   = document.getElementById('spinBtn');
+    var spinIcon  = document.getElementById('spinIcon');
+    var resetBtn  = document.getElementById('resetBtn');
+    var dragHint  = document.getElementById('dragHint');
+
+    // grab all 4 frame images
+    var frames = [
+        document.getElementById('frame0'),  // front  (0°)
+        document.getElementById('frame1'),  // right  (90°)
+        document.getElementById('frame2'),  // back   (180°)
+        document.getElementById('frame3')   // left   (270°)
+    ];
 
     var currentAngle = 0;
-    var isDragging = false;
-    var startX = 0;
-    var lastAngle = 0;
+    var isDragging   = false;
+    var startX       = 0;
+    var lastAngle    = 0;
+    var lastX        = 0;
+    var velocity     = 0;
     var spinInterval = null;
-    var isSpinning = false;
+    var momentumRAF  = null;
+    var isSpinning   = false;
 
-    // update the 4 dots based on angle
-    function updateDots(angle) {
-        var normalized = ((angle % 360) + 360) % 360;
-        var dotIndex = Math.floor(normalized / 90);
+    // crossfade between the 4 real angle images based on current angle
+    function updateFrames(angle) {
+        var normalized  = ((angle % 360) + 360) % 360;
+        var frameFloat  = normalized / 90;           // 0.0 → 4.0
+        var frameA      = Math.floor(frameFloat) % 4;
+        var frameB      = (frameA + 1) % 4;
+        var blend       = frameFloat - Math.floor(frameFloat); // 0 → 1
+
+        frames.forEach(function(f) { f.style.opacity = 0; });
+        frames[frameA].style.opacity = 1 - blend;
+        frames[frameB].style.opacity = blend;
+
+        // update dots
+        var dotIndex = Math.round(normalized / 90) % 4;
         for (var i = 0; i < 4; i++) {
             document.getElementById('dot' + i).classList.remove('active');
         }
         document.getElementById('dot' + dotIndex).classList.add('active');
     }
 
-    // apply rotation to the card
     function setAngle(angle) {
         currentAngle = angle;
-        card.style.transform = 'rotateY(' + angle + 'deg)';
-        updateDots(angle);
+        updateFrames(angle);
+    }
+
+    // momentum deceleration after drag release
+    function applyMomentum() {
+        velocity *= 0.92;
+        if (Math.abs(velocity) < 0.05) return;
+        currentAngle += velocity;
+        updateFrames(currentAngle);
+        momentumRAF = requestAnimationFrame(applyMomentum);
     }
 
     // auto spin
     function startSpin() {
         isSpinning = true;
         spinIcon.className = 'fa-solid fa-pause';
-        spinInterval = setInterval(function() {
-            currentAngle += 1.5;
-            setAngle(currentAngle);
-        }, 16);
+        cancelAnimationFrame(momentumRAF);
+
+        function spinStep() {
+            if (!isSpinning) return;
+            currentAngle += 0.8;
+            updateFrames(currentAngle);
+            spinInterval = requestAnimationFrame(spinStep);
+        }
+        spinStep();
     }
 
     function stopSpin() {
         isSpinning = false;
         spinIcon.className = 'fa-solid fa-play';
-        clearInterval(spinInterval);
+        cancelAnimationFrame(spinInterval);
     }
 
     spinBtn.addEventListener('click', function() {
-        if (isSpinning) {
-            stopSpin();
-        } else {
-            startSpin();
-        }
+        if (isSpinning) { stopSpin(); } else { startSpin(); }
     });
 
     resetBtn.addEventListener('click', function() {
         stopSpin();
+        cancelAnimationFrame(momentumRAF);
+        velocity = 0;
         currentAngle = 0;
         setAngle(0);
     });
 
-    // mouse drag events
-    card.addEventListener('mousedown', function(e) {
+    // ---- MOUSE events ----
+    stack.addEventListener('mousedown', function(e) {
         isDragging = true;
-        startX = e.clientX;
-        lastAngle = currentAngle;
+        startX     = e.clientX;
+        lastX      = e.clientX;
+        lastAngle  = currentAngle;
+        velocity   = 0;
         stopSpin();
-        card.style.transition = 'none';
+        cancelAnimationFrame(momentumRAF);
         dragHint.style.opacity = '0';
+        e.preventDefault();
     });
 
     document.addEventListener('mousemove', function(e) {
         if (!isDragging) return;
+        velocity = (e.clientX - lastX) * 0.5;
+        lastX    = e.clientX;
         var diff = e.clientX - startX;
-        setAngle(lastAngle + diff * 0.4);
+        setAngle(lastAngle + diff * 0.5);
     });
 
     document.addEventListener('mouseup', function() {
-        if (isDragging) {
-            isDragging = false;
-            card.style.transition = 'transform 0.1s ease-out';
-        }
+        if (!isDragging) return;
+        isDragging = false;
+        applyMomentum();  // keep spinning smoothly after release
     });
 
-    // touch drag events for mobile
-    card.addEventListener('touchstart', function(e) {
-        startX = e.touches[0].clientX;
+    // ---- TOUCH events ----
+    stack.addEventListener('touchstart', function(e) {
+        startX    = e.touches[0].clientX;
+        lastX     = e.touches[0].clientX;
         lastAngle = currentAngle;
+        velocity  = 0;
         stopSpin();
+        cancelAnimationFrame(momentumRAF);
         dragHint.style.opacity = '0';
     });
 
-    card.addEventListener('touchmove', function(e) {
+    stack.addEventListener('touchmove', function(e) {
         e.preventDefault();
+        velocity = (e.touches[0].clientX - lastX) * 0.5;
+        lastX    = e.touches[0].clientX;
         var diff = e.touches[0].clientX - startX;
-        setAngle(lastAngle + diff * 0.4);
+        setAngle(lastAngle + diff * 0.5);
     }, { passive: false });
 
-    // auto spin on page load for 3 seconds to show the feature
+    stack.addEventListener('touchend', function() {
+        applyMomentum();
+    });
+
+    // show front frame on load then auto spin for 2 full rotations
+    setAngle(0);
     startSpin();
     setTimeout(function() {
         stopSpin();
-    }, 3000);
+    }, 4500);
 
-    // hide drag hint after 4 seconds
+    // hide drag hint after 5 seconds
     setTimeout(function() {
         dragHint.style.opacity = '0';
-    }, 4000);
+    }, 5000);
 </script>
 
 </body>

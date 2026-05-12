@@ -1,4 +1,3 @@
-/* google font for the big italic stuff - playfair looks close to the design */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap');
 
 * {
@@ -12,15 +11,12 @@ body {
     overflow: hidden;
 }
 
-/* full page flex - white on left, red on right */
 .page {
     display: flex;
     height: 100vh;
     width: 100vw;
     position: relative;
 }
-
-/* -------- LEFT SIDE -------- */
 
 .left {
     width: 50%;
@@ -37,7 +33,6 @@ body {
     padding: 26px 0;
 }
 
-/* dark green, chunky, all caps */
 .logo {
     font-size: 20px;
     font-weight: 900;
@@ -71,7 +66,6 @@ body {
     width: 100%;
 }
 
-/* flex row: rotated label on the left, list items on the right */
 .classification-block {
     display: flex;
     align-items: center;
@@ -80,7 +74,6 @@ body {
     padding-bottom: 50px;
 }
 
-/* turned sideways - reads bottom to top */
 .classification-label {
     font-family: 'Playfair Display', serif;
     font-style: italic;
@@ -106,7 +99,6 @@ body {
     position: relative;
 }
 
-/* little red dot instead of a normal bullet */
 .classification-list li::before {
     content: '';
     position: absolute;
@@ -130,16 +122,13 @@ body {
     color: #333;
 }
 
-/* -------- BEETLE IN THE MIDDLE -------- */
-
-/* sits exactly over the split line, slightly above center */
 .beetle-dome {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -48%);
     z-index: 10;
-    width: 360px;
+    width: 300px;
     pointer-events: none;
 }
 
@@ -148,8 +137,6 @@ body {
     height: auto;
     display: block;
 }
-
-/* -------- RIGHT SIDE -------- */
 
 .right {
     width: 50%;
@@ -180,20 +167,18 @@ nav li {
 
 nav li:hover {
     opacity: 1;
-    border-bottom: 1px solid rgba(255,255,255,0.6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
 }
 
-/* content sits in the lower two-thirds of the right side */
 .specimen-info {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0 55px 40px;
+    padding: 0 55px 40px 170px;
     gap: 26px;
 }
 
-/* big italic serif - the star of the right side */
 h1 {
     font-family: 'Playfair Display', serif;
     font-style: italic;
@@ -202,7 +187,6 @@ h1 {
     line-height: 1.1;
 }
 
-/* beetle silhouette + thin divider + 3 stats */
 .meta-row {
     display: flex;
     align-items: center;
@@ -260,7 +244,6 @@ h1 {
     margin-bottom: 1px;
 }
 
-/* golden yellow price - same warm tone as the dome base */
 .price {
     font-family: 'Playfair Display', serif;
     font-size: 44px;
@@ -268,7 +251,6 @@ h1 {
     color: #d4a030;
 }
 
-/* toggle rows */
 .toggles {
     display: flex;
     flex-direction: column;
@@ -305,7 +287,6 @@ h1 {
     transition: background 0.2s;
 }
 
-/* the white circle handle inside the toggle */
 .track::before {
     content: '';
     position: absolute;
@@ -318,15 +299,14 @@ h1 {
     transition: transform 0.2s;
 }
 
-.toggle-switch input:checked + .track {
+.toggle-switch input:checked+.track {
     background: rgba(255, 255, 255, 0.5);
 }
 
-.toggle-switch input:checked + .track::before {
+.toggle-switch input:checked+.track::before {
     transform: translateX(20px);
 }
 
-/* tan/beige button - stands out from the red */
 .add-btn {
     width: 255px;
     padding: 17px 0;

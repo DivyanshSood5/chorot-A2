@@ -1,17 +1,16 @@
-/* custom fonts from the Area family */
 @font-face {
     font-family: areaNormal;
-    src: url(./assets/fonts/fonnts.com-Area_Normal_Regular.otf);
+    src: url(./fonts/fonnts.com-Area_Normal_Regular.otf);
 }
 
 @font-face {
     font-family: areaBold;
-    src: url(./assets/fonts/fonnts.com-Area_Normal_Bold.otf);
+    src: url(./fonts/fonnts.com-Area_Normal_Bold.otf);
 }
 
 @font-face {
     font-family: areaExtraBold;
-    src: url(./assets/fonts/fonnts.com-Area_Normal_ExtraBold.otf);
+    src: url(./fonts/fonnts.com-Area_Normal_ExtraBold.otf);
 }
 
 * {
@@ -29,7 +28,6 @@ body {
     color: #ffffff;
 }
 
-/* fixed height so main content can use padding-top to clear it */
 nav {
     position: absolute;
     top: 0;
@@ -50,7 +48,6 @@ nav {
     font-size: larger;
 }
 
-/* logo is upside-down in the asset, flip it */
 .logo img {
     transform: rotate(-180deg);
     height: 30%;
@@ -124,7 +121,6 @@ header {
     padding: 20px 0;
 }
 
-/* pill-shaped filter tabs */
 .quickNavbuttons {
     color: #ffffff;
     height: 45px;
@@ -136,7 +132,6 @@ header {
     background-color: #121212;
 }
 
-/* "All" tab stays orange - active state */
 .quickNavbuttons:first-child {
     background-color: #fc4708;
 }
@@ -182,7 +177,6 @@ header {
     justify-content: center;
 }
 
-/* warm orange tag pill inside cards */
 .descbutton button {
     text-align: center;
     font-size: large;

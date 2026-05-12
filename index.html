@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+        }
+
+        h1 {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #555;
+            margin-bottom: 50px;
+        }
+
+        .grid {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        a.card {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            width: 320px;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #141414;
+            border: 1px solid #1e1e1e;
+            transition: transform 0.2s, border-color 0.2s;
+            cursor: pointer;
+        }
+
+        a.card:hover {
+            transform: translateY(-6px);
+            border-color: #444;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        a.card:hover .card-image img {
+            transform: scale(1.04);
+        }
+
+        .card-label {
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-label span {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ccc;
+        }
+
+        .card-label svg {
+            width: 16px;
+            height: 16px;
+            color: #555;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        a.card:hover .card-label svg {
+            color: #fff;
+            transform: translateX(3px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>My Projects</h1>
+
+    <div class="grid">
+
+        <a class="card" href="./website1/index.html">
+            <div class="card-image">
+                <img src="./assets/image1.png" alt="Website 1">
+            </div>
+            <div class="card-label">
+                <span>Website 1</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </div>
+        </a>
+
+        <a class="card" href="./website2/index.html">
+            <div class="card-image">
+                <img src="./assets/image2.png" alt="Website 2">
+            </div>
+            <div class="card-label">
+                <span>Website 2</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </div>
+        </a>
+
+        <a class="card" href="./website3/index.html">
+            <div class="card-image">
+                <img src="./assets/image3.png" alt="Website 3">
+            </div>
+            <div class="card-label">
+                <span>Website 3</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </div>
+        </a>
+
+    </div>
+
+</body>
+
+</html>

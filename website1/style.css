@@ -1,4 +1,3 @@
-/* reset */
 * {
     margin: 0;
     padding: 0;
@@ -11,9 +10,6 @@ body {
     color: #111;
 }
 
-/* =====================
-   HEADER
-===================== */
 .header {
     display: flex;
     align-items: center;
@@ -64,9 +60,6 @@ body {
     color: #E87722;
 }
 
-/* =====================
-   MAIN PRODUCT SECTION
-===================== */
 .product-section {
     display: flex;
     padding: 40px 60px 0px 60px;
@@ -74,7 +67,6 @@ body {
     min-height: 640px;
 }
 
-/* ---- LEFT PANEL ---- */
 .left-panel {
     flex: 0 0 250px;
     padding-right: 30px;
@@ -161,7 +153,6 @@ body {
     color: #999;
 }
 
-/* ---- CENTER PANEL ---- */
 .center-panel {
     flex: 1;
     display: flex;
@@ -178,11 +169,6 @@ body {
     margin-bottom: 0;
 }
 
-/* =====================
-   360 VIEWER
-===================== */
-
-/* outer wrapper - position relative so badge and hint can sit on top */
 .viewer-360-wrap {
     position: relative;
     display: flex;
@@ -191,7 +177,6 @@ body {
     width: 100%;
 }
 
-/* 360 badge in top-right corner */
 .badge-360 {
     position: absolute;
     top: 10px;
@@ -209,7 +194,6 @@ body {
     z-index: 10;
 }
 
-/* drag hint shown at start */
 .drag-hint {
     position: absolute;
     top: 50%;
@@ -230,7 +214,6 @@ body {
     gap: 7px;
 }
 
-/* perspective wrapper gives the 3D depth to the rotation */
 .viewer-perspective-wrap {
     perspective: 1100px;
     perspective-origin: center center;
@@ -239,7 +222,6 @@ body {
     justify-content: center;
 }
 
-/* frame stack rotates in 3D as a whole unit */
 .viewer-frame-stack {
     position: relative;
     width: 520px;
@@ -254,7 +236,6 @@ body {
     cursor: grabbing;
 }
 
-/* all frames stacked - no transition so swap is instant (no fade) */
 .jacket-frame {
     position: absolute;
     top: 0;
@@ -268,12 +249,10 @@ body {
     display: block;
 }
 
-/* front frame visible by default */
 #frame0 {
     opacity: 1;
 }
 
-/* mirror the left and right side images so facing direction looks correct */
 #frame1 {
     transform: scaleX(-1);
 }
@@ -282,7 +261,6 @@ body {
     transform: scaleX(-1);
 }
 
-/* controls row below the viewer */
 .viewer-controls {
     display: flex;
     align-items: center;
@@ -310,7 +288,6 @@ body {
     color: #E87722;
 }
 
-/* 4 dots showing which quarter you're looking at */
 .rotation-dots {
     display: flex;
     gap: 7px;
@@ -331,7 +308,6 @@ body {
     height: 10px;
 }
 
-/* badges row at the bottom of center */
 .badges-row {
     display: flex;
     gap: 45px;
@@ -359,7 +335,6 @@ body {
     color: #aaa;
 }
 
-/* ---- RIGHT PANEL ---- */
 .right-panel {
     flex: 0 0 240px;
     padding-left: 30px;
@@ -376,7 +351,6 @@ body {
     margin-bottom: 14px;
 }
 
-/* size buttons */
 .size-buttons {
     display: flex;
     gap: 8px;
@@ -422,7 +396,6 @@ body {
     color: #E87722;
 }
 
-/* color grid - 2 columns */
 .color-grid {
     display: flex;
     flex-wrap: wrap;
@@ -431,7 +404,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* each color card uses position relative for the selected border effect */
 .color-option {
     width: 95px;
     text-align: center;
@@ -464,7 +436,6 @@ body {
     border-color: #E87722;
 }
 
-/* small orange checkmark in corner of selected color */
 .color-option.selected::after {
     content: '';
     position: absolute;
@@ -476,7 +447,6 @@ body {
     border-radius: 50%;
 }
 
-/* wishlist button */
 .wishlist-btn {
     width: 100%;
     padding: 13px 10px;
@@ -501,7 +471,6 @@ body {
     color: #E87722;
 }
 
-/* add to bag button */
 .add-bag-btn {
     width: 100%;
     padding: 15px 10px;
@@ -524,9 +493,6 @@ body {
     background-color: #cf6710;
 }
 
-/* =====================
-   FEATURES STRIP
-===================== */
 .features-strip {
     display: flex;
     border-top: 1px solid #e0d9d0;
@@ -570,9 +536,6 @@ body {
     line-height: 1.65;
 }
 
-/* =====================
-   INFO BAR
-===================== */
 .info-bar {
     display: flex;
     border-top: 1px solid #e0d9d0;

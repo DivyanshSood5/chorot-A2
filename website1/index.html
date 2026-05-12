@@ -12,7 +12,6 @@
 </head>
 <body>
 
-    <!-- top navbar -->
     <header class="header">
         <div class="logo">ASTRO<span class="dot">.</span></div>
 
@@ -30,10 +29,8 @@
         </div>
     </header>
 
-    <!-- main product section - 3 columns -->
     <div class="product-section">
 
-        <!-- left column - product details -->
         <div class="left-panel">
             <p class="new-label">NEW</p>
             <h1 class="product-title">
@@ -72,25 +69,19 @@
             <hr class="divider">
         </div>
 
-        <!-- center column - jacket image with 360 viewer -->
         <div class="center-panel">
 
-            <!-- 360 degree viewer -->
             <div class="viewer-360-wrap">
 
-                <!-- 360 badge top right -->
                 <div class="badge-360">
                     <i class="fa-solid fa-rotate"></i> 360°
                 </div>
 
-                <!-- drag hint shown on first load -->
                 <div class="drag-hint" id="dragHint">
                     <i class="fa-solid fa-hand-pointer"></i> Drag to rotate
                 </div>
 
-                <!-- perspective wrapper gives 3D depth -->
                 <div class="viewer-perspective-wrap">
-                    <!-- this whole stack physically tilts in 3D as you drag -->
                     <div class="viewer-frame-stack" id="viewerStack">
                         <img src="assets/image.webp"      class="jacket-frame" id="frame0" alt="Front">
                         <img src="assets/jacketRight.png"  class="jacket-frame" id="frame1" alt="Right">
@@ -99,7 +90,6 @@
                     </div>
                 </div>
 
-                <!-- controls row -->
                 <div class="viewer-controls">
                     <button class="ctrl-btn" id="spinBtn" title="Auto spin">
                         <i class="fa-solid fa-play" id="spinIcon"></i>
@@ -117,7 +107,6 @@
 
             </div>
 
-            <!-- 3 feature badges below jacket image -->
             <div class="badges-row">
                 <div class="badge-item">
                     <i class="fa-solid fa-snowflake"></i>
@@ -134,7 +123,6 @@
             </div>
         </div>
 
-        <!-- right column - size, color, buttons -->
         <div class="right-panel">
 
             <p class="panel-heading">SIZE</p>
@@ -150,7 +138,6 @@
 
             <p class="panel-heading">COLOR</p>
 
-            <!-- 2x2 color grid -->
             <div class="color-grid">
                 <div class="color-option selected">
                     <img src="assets/design.webp" alt="Beige Jacket">
@@ -182,7 +169,6 @@
 
     </div>
 
-    <!-- 4-card features strip -->
     <div class="features-strip">
 
         <div class="feat-card">
@@ -219,7 +205,6 @@
 
     </div>
 
-    <!-- bottom info bar -->
     <div class="info-bar">
 
         <div class="info-item">
@@ -264,24 +249,23 @@
     var dragHint = document.getElementById('dragHint');
 
     var frames = [
-        document.getElementById('frame0'),   // 0°   front
-        document.getElementById('frame1'),   // 90°  right
-        document.getElementById('frame2'),   // 180° back
-        document.getElementById('frame3')    // 270° left
+        document.getElementById('frame0'),
+        document.getElementById('frame1'),
+        document.getElementById('frame2'),
+        document.getElementById('frame3')
     ];
 
-    var totalAngle   = 0;     // cumulative drag angle (can go beyond 360)
-    var activeFrame  = 0;     // which photo is currently shown
+    var totalAngle   = 0;
+    var activeFrame  = 0;
     var isDragging   = false;
     var startX       = 0;
     var lastX        = 0;
-    var dragAngle    = 0;     // angle at drag start
+    var dragAngle    = 0;
     var velocity     = 0;
     var spinRAF      = null;
     var momentumRAF  = null;
     var isSpinning   = false;
 
-    // show a specific frame instantly (no fade)
     function showFrame(index) {
         if (index === activeFrame) return;
         frames[activeFrame].style.opacity = '0';
@@ -289,34 +273,23 @@
         activeFrame = index;
     }
 
-    // core update - called every frame
-    // totalAngle drives everything:
-    //   which photo to show + how much to physically tilt the stack
     function update(angle) {
         totalAngle = angle;
 
-        var normalized   = ((angle % 360) + 360) % 360;  // 0 - 360
-        var frameFloat   = normalized / 90;               // 0.0 - 4.0
+        var normalized   = ((angle % 360) + 360) % 360;
+        var frameFloat   = normalized / 90;
         var frameIndex   = Math.floor(frameFloat) % 4;
-        var progress     = frameFloat - Math.floor(frameFloat); // 0 - 1 within current frame
+        var progress     = frameFloat - Math.floor(frameFloat);
 
-        // swap to the correct photo instantly
         showFrame(frameIndex);
 
-        // map progress (0→1) to a tilt angle (-45° → +45°)
-        // so at the start of a frame you see it from -45°
-        // at midpoint (0.5) you see it straight on (0°)
-        // at end of frame you see it from +45° before swapping
         var tiltY = (progress - 0.5) * 90;
 
-        // apply 3D tilt to the whole stack
         stack.style.transform = 'rotateY(' + tiltY + 'deg)';
 
-        // add slight brightness darkening at extreme tilt angles (more realistic)
         var brightness = 1 - (Math.abs(tiltY) / 90) * 0.18;
         stack.style.filter = 'brightness(' + brightness + ')';
 
-        // update the 4 position dots
         var dotIndex = Math.round(normalized / 90) % 4;
         for (var i = 0; i < 4; i++) {
             document.getElementById('dot' + i).classList.remove('active');
@@ -324,7 +297,6 @@
         document.getElementById('dot' + dotIndex).classList.add('active');
     }
 
-    // momentum - keeps spinning after drag release, decelerates naturally
     function applyMomentum() {
         velocity *= 0.93;
         if (Math.abs(velocity) < 0.05) {
@@ -336,7 +308,6 @@
         momentumRAF = requestAnimationFrame(applyMomentum);
     }
 
-    // auto spin using rAF
     function startSpin() {
         isSpinning = true;
         spinIcon.className = 'fa-solid fa-pause';
@@ -369,7 +340,6 @@
         update(0);
     });
 
-    // --- MOUSE ---
     stack.addEventListener('mousedown', function(e) {
         isDragging = true;
         startX     = e.clientX;
@@ -395,7 +365,6 @@
         applyMomentum();
     });
 
-    // --- TOUCH ---
     stack.addEventListener('touchstart', function(e) {
         startX    = e.touches[0].clientX;
         lastX     = e.touches[0].clientX;
@@ -417,7 +386,6 @@
         applyMomentum();
     });
 
-    // boot: show front, auto-spin for 2 full rotations then stop
     update(0);
     startSpin();
     setTimeout(function() {

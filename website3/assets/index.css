@@ -1,0 +1,346 @@
+/* google font for the big italic stuff - playfair looks close to the design */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+/* full page flex - white on left, red on right */
+.page {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+
+/* -------- LEFT SIDE -------- */
+
+.left {
+    width: 50%;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding-left: 55px;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 26px 0;
+}
+
+/* dark green, chunky, all caps */
+.logo {
+    font-size: 20px;
+    font-weight: 900;
+    color: #1a3d1f;
+    letter-spacing: 3px;
+}
+
+.searchbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f0f0f0;
+    border-radius: 999px;
+    padding: 9px 20px;
+    width: 230px;
+}
+
+.search-icon {
+    width: 15px;
+    height: 15px;
+    color: #999;
+    flex-shrink: 0;
+}
+
+.searchbar input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    color: #666;
+    width: 100%;
+}
+
+/* flex row: rotated label on the left, list items on the right */
+.classification-block {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 32px;
+    padding-bottom: 50px;
+}
+
+/* turned sideways - reads bottom to top */
+.classification-label {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 32px;
+    color: #1a3d1f;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap;
+    letter-spacing: 4px;
+}
+
+.classification-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.classification-list li {
+    display: flex;
+    flex-direction: column;
+    padding: 13px 0 13px 22px;
+    border-bottom: 1px solid #ebebeb;
+    position: relative;
+}
+
+/* little red dot instead of a normal bullet */
+.classification-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 20px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #c0231a;
+}
+
+.classification-list li strong {
+    font-size: 13px;
+    font-weight: 700;
+    color: #c0231a;
+    margin-bottom: 3px;
+}
+
+.classification-list li span {
+    font-size: 13px;
+    color: #333;
+}
+
+/* -------- BEETLE IN THE MIDDLE -------- */
+
+/* sits exactly over the split line, slightly above center */
+.beetle-dome {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -48%);
+    z-index: 10;
+    width: 360px;
+    pointer-events: none;
+}
+
+.beetle-dome img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* -------- RIGHT SIDE -------- */
+
+.right {
+    width: 50%;
+    background: #b01b12;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+nav {
+    padding: 26px 50px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 38px;
+}
+
+nav li {
+    font-size: 15px;
+    cursor: pointer;
+    opacity: 0.85;
+    transition: opacity 0.15s;
+}
+
+nav li:hover {
+    opacity: 1;
+    border-bottom: 1px solid rgba(255,255,255,0.6);
+}
+
+/* content sits in the lower two-thirds of the right side */
+.specimen-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 55px 40px;
+    gap: 26px;
+}
+
+/* big italic serif - the star of the right side */
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 54px;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+/* beetle silhouette + thin divider + 3 stats */
+.meta-row {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.beetle-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.beetle-icon svg {
+    width: 52px;
+    height: 70px;
+    opacity: 0.75;
+}
+
+.beetle-icon span {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.meta-divider {
+    width: 1px;
+    height: 85px;
+    background: rgba(255, 255, 255, 0.25);
+    flex-shrink: 0;
+}
+
+.meta-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.stat-icon {
+    width: 18px;
+    height: 18px;
+    opacity: 0.75;
+    flex-shrink: 0;
+}
+
+.meta-label {
+    font-size: 11px;
+    opacity: 0.65;
+    margin-bottom: 1px;
+}
+
+/* golden yellow price - same warm tone as the dome base */
+.price {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    font-weight: 700;
+    color: #d4a030;
+}
+
+/* toggle rows */
+.toggles {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.toggle-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    font-size: 15px;
+    user-select: none;
+}
+
+.toggle-switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.track {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    transition: background 0.2s;
+}
+
+/* the white circle handle inside the toggle */
+.track::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+
+.toggle-switch input:checked + .track {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.toggle-switch input:checked + .track::before {
+    transform: translateX(20px);
+}
+
+/* tan/beige button - stands out from the red */
+.add-btn {
+    width: 255px;
+    padding: 17px 0;
+    background: #c9a96e;
+    color: #3a1e00;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.15s;
+}
+
+.add-btn:hover {
+    background: #d6b87c;
+}

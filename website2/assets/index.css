@@ -1,0 +1,207 @@
+/* custom fonts from the Area family */
+@font-face {
+    font-family: areaNormal;
+    src: url(./assets/fonts/fonnts.com-Area_Normal_Regular.otf);
+}
+
+@font-face {
+    font-family: areaBold;
+    src: url(./assets/fonts/fonnts.com-Area_Normal_Bold.otf);
+}
+
+@font-face {
+    font-family: areaExtraBold;
+    src: url(./assets/fonts/fonnts.com-Area_Normal_ExtraBold.otf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100vh;
+    width: 100vw;
+    font-family: "areaNormal";
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* fixed height so main content can use padding-top to clear it */
+nav {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex-basis: 25%;
+    justify-content: center;
+    gap: 10px;
+    font-family: 'areaBold';
+    font-weight: bolder;
+    font-size: larger;
+}
+
+/* logo is upside-down in the asset, flip it */
+.logo img {
+    transform: rotate(-180deg);
+    height: 30%;
+}
+
+.navLinks {
+    flex-basis: 50%;
+}
+
+.navLinks ul {
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+}
+
+.navLinks li:hover {
+    color: #fc4708;
+    cursor: pointer;
+    border-bottom: solid #fc4708;
+    scale: 1.05;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 25%;
+}
+
+.getstarted {
+    background-color: #121212;
+    border-radius: 8px;
+    height: 50%;
+    width: 130px;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-size: medium;
+}
+
+.getstarted:hover {
+    color: #fc4708;
+    border: solid;
+    cursor: pointer;
+    scale: 1.05;
+    background-color: #000;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: 100px;
+}
+
+header {
+    font-family: "areaExtraBold";
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.navButtons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px 0;
+}
+
+/* pill-shaped filter tabs */
+.quickNavbuttons {
+    color: #ffffff;
+    height: 45px;
+    font-size: large;
+    padding: 0 20px;
+    border-radius: 9999px;
+    border: none;
+    outline: none;
+    background-color: #121212;
+}
+
+/* "All" tab stays orange - active state */
+.quickNavbuttons:first-child {
+    background-color: #fc4708;
+}
+
+.quickNavbuttons:hover {
+    background-color: #fc4708;
+    scale: 1.05;
+    cursor: pointer;
+}
+
+.cards {
+    display: flex;
+    flex-basis: 60%;
+    justify-content: center;
+    gap: 2%;
+}
+
+.card {
+    flex-basis: 18%;
+    border-radius: 20px;
+    background-color: #0f0f0e;
+}
+
+.image {
+    width: 100%;
+    height: 60%;
+    border-radius: 20px;
+}
+
+.image img {
+    object-fit: cover;
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.description {
+    display: flex;
+    height: 40%;
+    flex-direction: column;
+    gap: 15px;
+    padding: 1% 8%;
+    justify-content: center;
+}
+
+/* warm orange tag pill inside cards */
+.descbutton button {
+    text-align: center;
+    font-size: large;
+    height: 35px;
+    padding: 0 20px;
+    border-radius: 9999px;
+    color: #eb8754;
+    border: none;
+    outline: none;
+    background-color: #521c0a;
+}
+
+.description span {
+    font-size: smaller;
+    color: #707070;
+    font-weight: bold;
+}
+
+.description p {
+    font-size: large;
+    font-weight: bolder;
+}
